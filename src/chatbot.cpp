@@ -64,7 +64,11 @@ ChatBot &ChatBot::operator=(const ChatBot &source)
 {
     std::cout << "ChatBot Copy Assignment Operator" << std::endl;
     if (this == &source) { return *this; }
-    delete this->_image;
+    
+    if (this->_image != nullptr)
+    {
+        delete this->_image;
+    }
     this->_image = new wxBitmap();
     *this->_image = *source._image;
 
@@ -96,7 +100,10 @@ ChatBot &ChatBot::operator=(ChatBot &&source)
     std::cout << "ChatBot Move Assignment Operator" << std::endl;
     if (this == &source) { return *this; }
     // Move member data to new object
-    delete this->_image;
+    if (this->_image != nullptr)
+    {
+        delete this->_image;
+    }
     this->_image = source._image;
     this->_chatLogic = source._chatLogic;
     this->_chatLogic->SetChatbotHandle(this);
